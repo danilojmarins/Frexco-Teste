@@ -19,13 +19,13 @@ export function verifyJwt(token: string) {
     try{
         const decode = jwt.verify(token, publicKey);
         return {
-            valid: true,
+            valido: true,
             expired: false,
             decode,
         };
     } catch(e: any){
         return {
-            valid: false,
+            valido: false,
             expired: e.message === 'jwt expirado',
             decode: null
         };

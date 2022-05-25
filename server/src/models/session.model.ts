@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { UsuarioDocumento } from './usuario.model';
 
 
-export interface SchemaDocumento extends mongoose.Document {
+export interface SessionDocumento extends mongoose.Document {
     usuario: UsuarioDocumento['_id'];
     valido: boolean;
     agenteUsuario: string;
@@ -17,6 +17,6 @@ const sessionSchema = new mongoose.Schema({
 }, {timestamps:true});
 
 
-const SessionModel = mongoose.model("Session", sessionSchema);
+const SessionModel = mongoose.model<SessionDocumento>("Session", sessionSchema);
 
 export default SessionModel;
