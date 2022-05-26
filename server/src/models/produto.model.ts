@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { UsuarioDocumento } from './usuario.model';
 
-
 export interface ProdutoDocumento extends mongoose.Document {
     usuario: UsuarioDocumento['_id'];
     nome: string;

@@ -5,6 +5,10 @@ export async function createProduto(input: DocumentDefinition<Omit<ProdutoDocume
     return ProdutoModel.create(input);
 }
 
+export async function findAllProduto(query: FilterQuery<ProdutoDocumento>) {
+    return ProdutoModel.find(query).lean();
+}
+
 export async function findProduto(query: FilterQuery<ProdutoDocumento>, options: QueryOptions = {lean: true}) {
     return ProdutoModel.findOne(query, {}, options);
 }
