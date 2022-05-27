@@ -32,7 +32,7 @@ function routes(app: Express) {
     // Estoque
     app.get('/api/estoques', requireUsuario, getAllEstoqueHandler);
     app.get('/api/estoques/:_id', [requireUsuario, validateResource(getEstoqueSchema)], getEstoqueHandler);
-    app.post('/api/estoques', [requireUsuario, validateResource(createEstoqueSchema)], createEstoqueHandler);
+    app.post('/api/estoques/:produtoId/:produtoNome', [requireUsuario, validateResource(createEstoqueSchema)], createEstoqueHandler);
     app.put('/api/estoques/:_id', [requireUsuario, validateResource(updateEstoqueSchema)], updateEstoqueHandler);
     app.delete('/api/estoques/:_id', [requireUsuario, validateResource(deleteEstoqueSchema)], deleteEstoqueHandler);
 }

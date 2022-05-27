@@ -8,29 +8,41 @@ const payload = {
     })
 };
 
-const params = {
+const createParams = {
     params: object({
-    _id: string({
-            required_error: '_id é obrigatório'
+        produtoId: string({
+            required_error: 'produtoId é obrigatório.'
+        }),
+        produtoNome: string({
+            required_error: 'produtoNome é obrigatório.'
+        })
+    })
+};
+
+const updateParams = {
+    params: object({
+        _id: string({
+            required_error: '_id é obrigatório.'
         })
     })
 };
 
 export const createEstoqueSchema = object({
-    ...payload
+    ...payload,
+    ...createParams
 });
 
 export const updateEstoqueSchema = object({
     ...payload,
-    ...params
+    ...updateParams
 });
 
 export const deleteEstoqueSchema = object({
-    ...params
+    ...updateParams
 });
 
 export const getEstoqueSchema = object({
-    ...params,
+    ...updateParams
 });
 
 export type CreateEstoqueInput = TypeOf<typeof createEstoqueSchema>

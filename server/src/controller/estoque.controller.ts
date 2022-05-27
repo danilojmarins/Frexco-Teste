@@ -1,15 +1,22 @@
 import { Request, Response } from 'express';
 import { CreateEstoqueInput, UpdateEstoqueInput, GetEstoqueInput, DeleteEstoqueInput } from '../schema/estoque.schema';
 import { createEstoque, deleteEstoque, findAndUpdateEstoque, findEstoque, findAllEstoque } from '../service/estoque.service';
+import { findProduto } from '../service/produto.service';
 
 
 /* POST */
-export async function createEstoqueHandler(req: Request<{}, {}, CreateEstoqueInput['body']>, res: Response) {
+export async function createEstoqueHandler(req: Request<CreateEstoqueInput['params'], CreateEstoqueInput['body']>, res: Response) {
     
     const usuarioId = res.locals.usuario._id;
-    const produtoId = res.locals.produto._id;
-    const produtoNome = res.locals.produto.nome;
+    const produtoId = req.params.produtoId;
+    const produtoNome = req.params.produtoNome;
     const body = req.body;
+    
+    const produto = await findProduto({produtoId, produtoNome});
+
+    if(!produto){
+        return res.sendStatus(404);
+    }
 
     const estoque = await createEstoque({...body, usuario: usuarioId, produto: produtoId, nome: produtoNome});
 
