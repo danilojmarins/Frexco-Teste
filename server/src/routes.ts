@@ -2,7 +2,7 @@ import { Express, Request, Response } from 'express';
 import { createProdutoHandler, deleteProdutoHandler, getProdutoHandler, getAllProdutoHandler, updateProdutoHandler } from './controller/produto.controller';
 import { createEstoqueHandler, deleteEstoqueHandler, getEstoqueHandler, getAllEstoqueHandler, updateEstoqueHandler } from './controller/estoque.controller';
 import { createUsuarioSessionHandler, deleteSessionHandler, getUsuarioSessionsHandler } from './controller/session.controller';
-import { createUsuarioHandler } from './controller/usuario.controller';
+import { createUsuarioHandler, getCurrentUsuario } from './controller/usuario.controller';
 import requireUsuario from './middleware/requireUsuario';
 import validateResource from './middleware/validateResource';
 import { createProdutoSchema, deleteProdutoSchema, getProdutoSchema, updateProdutoSchema } from './schema/produto.schema';
@@ -16,6 +16,7 @@ function routes(app: Express) {
 
     // Usuários
     app.post('/api/usuarios', validateResource(createUsuarioSchema), createUsuarioHandler);
+    app.get('/api/me', requireUsuario, getCurrentUsuario);
 
     // Sessions
     app.post('/api/sessions', validateResource(createSessionSchema), createUsuarioSessionHandler);

@@ -8,9 +8,13 @@ export async function createUsuarioHandler(
     res: Response) {
     try{
         const usuario = await createUsuario(req.body); // chama a criação de usuário
-        return res.send(omit(usuario.toJSON(), 'senha'));
+        return res.send(usuario);
     } catch(e: any) {
         console.error(e);
         return res.status(409).send(e.message);
     }
+};
+
+export async function getCurrentUsuario(req: Request, res: Response) {
+   return res.send(res.locals.usuario);
 };
